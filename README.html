@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Read Me</title>
+        <meta charset="utf-8">
+        <style>
+            body {
+                font: 13px 'Tahoma', sans-serif;
+                direction: rtl;
+                background-color: #e3e3e3;
+                margin: 3em 5em;
+            }
+            .heading {
+                font-family: 'Times', arial;
+                text-align: center;
+            }
+            code {
+                padding: 2px;
+            }
+            code pre {
+                border: 1px solid #888;
+                font-family: 'consolas', tahoma;
+                background-color: #fff;
+                direction: ltr;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>راهنمای استفاده از Library زرین‌پال</h1>
+        <p>این کتابخانه صرفاً به عنوان یک Helper نوشته شده است و به دلیل نیازهای ویژه‌ی آن به صورت کتابخانه درآمده است.</p>
+        <p>این کتابخانه کمک می‌کند تا از نوشتن کدهای تکراری رهایی یابید. این کتابخانه برای تبادل اطلاعات از nuSOAP استفاده می‌کند و بنابراین به کتابخانه‌ی SOAP پی‌اچ‌پی نیازی نیست.</p>
+        <p>برای درخواست تنها به Merchant ID نیاز است. برای شروع کار فایل nusoap.php و zarinpal.php را در مسیر path/to/ci/application/libraries/ قرار دهید</p>
+        <p>برای ایجاد درخواست کافیت است تا با تابع create_payment یک درخواست پرداخت مانند نمونه‌ی زیر ایجاد کنید.</p>
+        <code><pre>
+            $this->load->library('zarinpal');
+            $this->zarinpal->create_payment( string $merchant, string $amount, string $gateway = 'ZarinGate' || 'WebGate' );
+        </pre></code><br>
+        <p>پس از ایجاد پرداخت، باید با تابع start_payment() عملیات پرداخت را شروع کنید.</p>
+        <code><pre>
+            $this->zarinpal->start_payment( string $callback_url, string $desc, string $mobile, string $email );
+        </pre></code>
+        <p>در صورت تایید زرین‌پال، آدرس پرداخت که باید کاربر را Redirect کنید بازگردانده می‌شود.</p>
+        <p><strong>برای استفاده از این Library باید دیتابیس خود را کانفیگ کنید!</strong></p>
+        <p>برای تایید پرداخت، ابتدا باید پارامتر Authority را از طریق GET بگیرید.</p>
+        <code><pre>
+            $authority = $_GET['authority'];
+            $this->zarinpal->verify_payment( string $authority );
+        </pre></code>
+        <p>در هر صورت این تابع آرایه‌ی پاسخ زرین‌پال را بازمی‌گرداند.</p>
+        <h2>Write less, Do more.</h2>
+    </body>
+</html>
